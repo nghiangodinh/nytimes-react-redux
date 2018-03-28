@@ -6,7 +6,6 @@ import  PagingNavContainer from "../containers/PagingNavContainer"
 
 class ArticleList extends Component {
   componentDidMount() {
-    debugger
     this.props.fetchArticles(this.props.dataPage);
   }
 

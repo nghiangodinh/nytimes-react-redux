@@ -16,21 +16,21 @@ export const SELECT_ARTICLE = "SELECT_ARTICLE";
  * action creators
  */
 
-const fetchArticlesRequest = pageIndex => {
+export const fetchArticlesRequest = pageIndex => {
   return {
     type: FETCH_ARTICLES_REQUEST,
     payload: pageIndex
   };
 };
 
-const fetchArticlesSuccess = body => {
+export const fetchArticlesSuccess = body => {
   return {
     type: FETCH_ARTICLES_SUCCESS,
     payload: body.response.docs
   };
 };
 
-const fetchArticlesFailure = error => {
+export const fetchArticlesFailure = error => {
   return {
     type: FETCH_ARTICLES_FAILURE,
     payload: error

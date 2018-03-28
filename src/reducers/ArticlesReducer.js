@@ -15,7 +15,6 @@ export default function(state = INITIAL_STATE, action) {
   let error;
   switch (action.type) {
     case FETCH_ARTICLES_REQUEST:
-      debugger;
       return {
         ...state,
         articlesList: { articles: [], error: null, loading: true },
@@ -23,7 +22,6 @@ export default function(state = INITIAL_STATE, action) {
       };
 
     case FETCH_ARTICLES_SUCCESS:
-      debugger;
       return {
         ...state,
         articlesList: {
