@@ -1,9 +1,8 @@
 import {
-  FETCH_ARTICLES,
+  FETCH_ARTICLES_REQUEST,
   FETCH_ARTICLES_SUCCESS,
   FETCH_ARTICLES_FAILURE,
-  SELECT_ARTICLE,
-  SET_DATA_PAGE
+  SELECT_ARTICLE
 } from "../actions";
 
 const INITIAL_STATE = {
@@ -15,19 +14,22 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   let error;
   switch (action.type) {
-    case FETCH_ARTICLES:
+    case FETCH_ARTICLES_REQUEST:
+      debugger;
       return {
         ...state,
-        articlesList: { articles: [], error: null, loading: true }
+        articlesList: { articles: [], error: null, loading: true },
+        dataPage: action.payload
       };
 
     case FETCH_ARTICLES_SUCCESS:
+      debugger;
       return {
         ...state,
         articlesList: {
           articles: action.payload,
           error: null,
-          loading: false,
+          loading: false
         }
       };
 
@@ -47,14 +49,10 @@ export default function(state = INITIAL_STATE, action) {
         ...state,
         selectedArticle: {
           article: article,
-          error: article ? null : { message: "Could not find article" }
+          error: article
+            ? null
+            : { message: `Article id: [${action.payload}] does not exist` }
         }
-      };
-
-    case SET_DATA_PAGE:
-      return {
-        ...state,
-        dataPage: action.payload
       };
 
     default:

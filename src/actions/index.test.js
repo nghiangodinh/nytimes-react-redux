@@ -1,4 +1,5 @@
 import * as actions from "./index";
+
 describe("actions", () => {
   it("should create a fetch articles success action", () => {
     const articles = [];

@@ -4,12 +4,12 @@ import { bindActionCreators } from "redux";
 import { selectArticle } from "../actions";
 import ArticleDetail from "../components/ArticleDetail";
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   return {
     selectedArticle: state.articles.selectedArticle,
     articleId: ownProps.id
   };
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({ selectArticle }, dispatch);

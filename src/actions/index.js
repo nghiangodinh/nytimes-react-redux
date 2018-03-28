@@ -1,5 +1,3 @@
-import axios from "axios";
-
 /*
  * other constants
  */
@@ -9,45 +7,49 @@ const ROOT_URL = `https://api.nytimes.com/svc/search/v2/articlesearch.json?api-k
 /*
  * Article action type
  */
-export const FETCH_ARTICLES = "FETCH_ARTICLES";
+export const FETCH_ARTICLES_REQUEST = "FETCH_ARTICLES_REQUEST";
 export const FETCH_ARTICLES_SUCCESS = "FETCH_ARTICLES_SUCCESS";
 export const FETCH_ARTICLES_FAILURE = "FETCH_ARTICLES_FAILURE";
 export const SELECT_ARTICLE = "SELECT_ARTICLE";
-export const SET_DATA_PAGE = "SET_DATA_PAGE";
 
 /*
  * action creators
  */
-export function fetchArticles(page) {
-  const url = `${ROOT_URL}${page}`;
-  const request = axios.get(url);
 
+const fetchArticlesRequest = pageIndex => {
   return {
-    type: FETCH_ARTICLES,
-    payload: request 
+    type: FETCH_ARTICLES_REQUEST,
+    payload: pageIndex
   };
-}
+};
 
-export function fetchArticlesSuccess(articles) {
+const fetchArticlesSuccess = body => {
   return {
     type: FETCH_ARTICLES_SUCCESS,
-    payload: articles
+    payload: body.response.docs
   };
-}
+};
 
-export function fetchArticlesFailure(error) {
+const fetchArticlesFailure = error => {
   return {
     type: FETCH_ARTICLES_FAILURE,
     payload: error
   };
-}
+};
+
+export const fetchArticles = pageIndex => {
+  return dispatch => {
+    dispatch(fetchArticlesRequest(pageIndex));
+    const url = `${ROOT_URL}${pageIndex}`;
+
+    return fetch(url)
+      .then(res => res.json())
+      .then(body => dispatch(fetchArticlesSuccess(body)))
+      .catch(ex => dispatch(fetchArticlesFailure(ex)));
+  };
+};
 
 export const selectArticle = id => ({
   type: SELECT_ARTICLE,
   payload: id
-});
-
-export const setDataPage = pageIndex => ({
-  type: SET_DATA_PAGE,
-  payload: pageIndex
 });

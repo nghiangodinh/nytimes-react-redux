@@ -6,6 +6,7 @@ import  PagingNavContainer from "../containers/PagingNavContainer"
 
 class ArticleList extends Component {
   componentDidMount() {
+    debugger
     this.props.fetchArticles(this.props.dataPage);
   }
 
@@ -32,8 +33,8 @@ class ArticleList extends Component {
 
     if (loading) {
       return (
-        <div className="container">
-          <h3>Loading...</h3>
+        <div className="progress" style={{ height: "3px" }}>
+          <div className="progress-bar progress-bar-striped bg-warning" role="progressbar" style={{ width: "100%", height: "3px" }} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       );
     } else if (error) {

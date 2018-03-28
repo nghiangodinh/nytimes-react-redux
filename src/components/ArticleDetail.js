@@ -12,7 +12,11 @@ class ArticleDetail extends Component {
     const { article, error } = this.props.selectedArticle;
 
     if (error) {
-      return <div className="alert alert-danger">{error.message}</div>;
+      return (
+        <div className="container-fluid">
+          <div className="alert alert-danger">{error.message}</div>
+        </div>
+      );
     } else if (!article) {
       return <span />;
     }
